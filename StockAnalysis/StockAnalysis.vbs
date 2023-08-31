@@ -12,12 +12,12 @@ Sub StockAnalysis ()
 
     ws.Range("P1").Value = "Ticker"                ' header row for tickers with greatest values
     ws.Range("Q1").Value = "Value"                 ' header row for tickers with greatest values
-    ws.Range("Q2").Value = "Greatest % Increase"
-    ws.Range("Q3").Value = "Greatest % Decrease"
-    ws.Range("Q4").Value = "Greatest Total Volume"
+    ws.Range("O2").Value = "Greatest % Increase"
+    ws.Range("O3").Value = "Greatest % Decrease"
+    ws.Range("O4").Value = "Greatest Total Volume"
 
     ws.Columns("I:L").AutoFit
-    ws.Columns("P:Q").AutoFit
+    ws.Columns("O:P").AutoFit
 
     Dim change        As Double  ' dailyChange = opening daily stock price - closing daily stock price
     Dim i             As Long    ' row counter for the entire data set
@@ -75,7 +75,7 @@ Sub StockAnalysis ()
 
           ' compute the daily change and daily percentage change
           change        = ws.Cells(i, 6) - ws.Cells(start, 3) '  close - open
-          percentChange = change / ws.Cells(start, 3) * 100   ' (close - open) / open * 100
+          percentChange = change / ws.Cells(start, 3)         ' (close - open) / open
 
           ' increment the cell containing the first nonzero opening daily stock price
           start = i + 1
@@ -83,10 +83,14 @@ Sub StockAnalysis ()
           ' print the results
           ws.Range("I" & 2 + j).Value        = ws.Cells(i, 1).Value ' ticker
           ws.Range("J" & 2 + j).Value        = change               ' yearly  change
-          ws.Range("J" & 2 + j).NumberFormat = "0.00"
+          ws.Range("J" & 2 + j).NumberFormat = "$#,##0.00"
+          'ws.Range("J" & 2 + j).Style        = "Currency"
           ws.Range("K" & 2 + j).Value        = percentChange        ' percent change
           ws.Range("K" & 2 + j).NumberFormat = "0.00"
+          ws.Range("K" & 2 + j).Style        = "Percent"
           ws.Range("L" & 2 + j).Value        = total                ' total stock volume
+          ws.Range("L" & 2 + j).NumberFormat = "$#,##0.00"
+          'ws.Range("L" & 2 + j).Style        = "Currency"
 
           ' color code column `Yearly Change`
           Select Case change
