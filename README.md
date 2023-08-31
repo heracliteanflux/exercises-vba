@@ -91,16 +91,26 @@ Installation
   * [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.range.autofit) ] `Range.AutoFit` method
   * [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.range.count) ] `Range.Count` property
   * [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.range.end) ] `Range.End` property
+  * [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.range.numberformat) ] `Range.NumberFormat` property
+    * [ [d](https://support.microsoft.com/en-us/office/number-format-codes-5026bbd6-04bc-48cd-bf33-80f18b4eae68?ui=en-us&rs=en-us&ad=us) ] Number format codes
+  * [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.range.numberformatlocal) ] `Range.NumberFormatLocal` property
   * [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.range.row) ] `Range.Row` property
+  * [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.range.style) ] `Range.Style` property
 * [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.sheets) ] `Sheets` object
+* [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.style) ] `Style` object
+* [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.styles) ] `Styles` object
 * [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.worksheetfunction.match) ] `WorksheetFunction.Match` method
 * [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.worksheet) ] `Worksheet` objet
   * [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.worksheet.name) ] `Worksheet.Name` property
 * [ [d](https://learn.microsoft.com/en-us/office/vba/api/excel.worksheets) ] `Worksheets` object
 
+data types
+* [ [d](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/currency-data-type) ] Currency
+
 [ [d](https://learn.microsoft.com/en-us/office/vba/language/reference/error-messages) ] Error messages
-* [ [d](https://learn.microsoft.com/en-us/office/vba/Language/Reference/User-Interface-Help/subscript-out-of-range-error-9) ] `Error 09` Subscript out of range
-* [ [d](https://learn.microsoft.com/en-us/office/vba/Language/Reference/User-Interface-Help/type-mismatch-error-13) ] `Error 13` Type mismatch
+* [ [d](https://learn.microsoft.com/en-us/office/vba/Language/Reference/User-Interface-Help/subscript-out-of-range-error-9) ] `Error 009` Subscript out of range
+* [ [d](https://learn.microsoft.com/en-us/office/vba/Language/Reference/User-Interface-Help/type-mismatch-error-13) ] `Error 013` Type mismatch
+* [ [d](https://learn.microsoft.com/en-us/office/vba/language/reference/user-interface-help/wrong-number-of-arguments-error-450?f1url=%3FappId%3DDev11IDEF1%26l%3Den-US%26k%3Dk(vblr6.chm1000450)%3Bk(TargetFrameworkMoniker-Office.Version%3Dv16)%26rd%3Dtrue) ] `Error 450` Wrong number of arguments
 
 
 ## Terms
