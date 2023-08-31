@@ -18,15 +18,12 @@ Sub StockAnalysis ()
     ws.Columns("I:L").AutoFit
     ws.Columns("P:Q").AutoFit
 
-    Dim averageChange As Double
-    Dim change        As Double  ' opening daily stock price - closing daily stock price
-    Dim dailyChange   As Double
-    Dim days          As Integer
+    Dim change        As Double  ' dailyChange = opening daily stock price - closing daily stock price
     Dim i             As Long    ' row counter
-    Dim j             As Integer
-    Dim percentChange As Double
+    Dim j             As Integer ' points to the output row which holds the printed results for a ticker, starting with row 2
+    Dim percentChange As Double  ' (opening daily stock price - closing daily stock price) / opening daily stock price
     Dim rowCount      As Long    ' the number of rows in the data set
-    Dim start         As Long
+    Dim start         As Long    ' points to a row of col 3, opening daily stock price
     Dim total         As Double  ' total stock volume
 
     ' Rows.Count drops down to the last row in the worksheet (1048576)
@@ -36,12 +33,15 @@ Sub StockAnalysis ()
     ' dropping down to the last row in the worksheet from the last nonempty cell of the data set
     rowCount = ws.Cells(Rows.Count, 1).End(xlUp).Row
 
+    ' initialization
     change = 0
     j      = 0
-    start  = 2
+    start  = 2 ' skip the header row and point to the first row of data
     total  = 0
 
+    ' for each row in the data set
     For i = 2 To rowCount
+
       ' --------------------
       ' if the ticker in the next row (i + 1) of col A
       ' is DIFFERENT than
@@ -49,36 +49,42 @@ Sub StockAnalysis ()
       ' --------------------
       If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
         total = total + ws.Cells(i, 7).Value ' add current ticker vol to total vol
-                                             ' and do some stuff before the next ticker
-        
+
+        ' If the total stock volume for this ticker is equal to zero...
         If total = 0 Then
-          ws.Range("I" & 2 + j).Value = ws.Cells(i, 1).Value
-          ws.Range("J" & 2 + j).Value = 0
-          ws.Range("K" & 2 + j).Value = "%" & 0
-          ws.Range("L" & 2 + j).Value = 0
+
+          ' ...print the results
+          ws.Range("I" & 2 + j).Value = ws.Cells(i, 1).Value ' ticker
+          ws.Range("J" & 2 + j).Value = 0                    ' zero absolute change
+          ws.Range("K" & 2 + j).Value = "%" & 0              ' zero percent  change
+          ws.Range("L" & 2 + j).Value = 0                    ' zero total stock volume
+
         Else
-          ' find the first non zero starting value
-          If ws.Cells(start, 3) = 0 Then
-            For find_value = start To i
-              If ws.Cells(find_value, 3).Value <> 0 Then
-                start = find_value
-                Exit For
+
+          ' find the first nonzero opening daily stock price
+          If ws.Cells(start, 3) = 0 Then                 ' if the opening daily stock price (Col 3) is equal to zero...
+            For find_value = start To i                  ' ...iterate over rows to the current row pointer
+              If ws.Cells(find_value, 3).Value <> 0 Then ' if any value is nonzero...
+                start = find_value                       ' ...then assign the cell that contains the nonzero value to `start`
+                Exit For                                 ' ...and break out of the loop
               End If
             Next find_value
           End If
 
+          ' compute the daily change and daily percentage change
           change           = ws.Cells(i, 6) - ws.Cells(start, 3) '  close - open
           percentageChange = change / ws.Cells(start, 3)         ' (close - open) / open
 
+          ' increment the non zero starting value
           start = i + 1
 
           ' print the results
-          ws.Range("I" & 2 + j).Value        = ws.Cells(i, 1).Value ' ticker          `Ticker`
-          ws.Range("J" & 2 + j).Value        = change               ' absolute change `Yearly Change`
+          ws.Range("I" & 2 + j).Value        = ws.Cells(i, 1).Value ' ticker
+          ws.Range("J" & 2 + j).Value        = change               ' yearly  change
           ws.Range("J" & 2 + j).NumberFormat = "0.00"
-          ws.Range("K" & 2 + j).Value        = percentChange        ' percent  change `Percent Change`
+          ws.Range("K" & 2 + j).Value        = percentChange        ' percent change
           ws.Range("K" & 2 + j).NumberFormat = "0.00"
-          ws.Range("L" & 2 + j).Value        = total                ' total           `Total Stock Volume`
+          ws.Range("L" & 2 + j).Value        = total                ' total stock volume
 
           ' color code column `Yearly Change`
           Select Case change
@@ -94,7 +100,6 @@ Sub StockAnalysis ()
 
         ' reset the variables for a new ticker
         change = 0
-        days   = 0
         j      = j + 1
         total  = 0
 
