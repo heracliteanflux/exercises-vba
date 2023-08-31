@@ -7,7 +7,7 @@ Sub CheckerBoard ()
   cell_num = 1
 
   For i = 1 To 8                            ' for each row of the board
-    For j = 1 To 8                          ' for each row of the col
+    For j = 1 To 8                          ' for each cell of the row
       If cell_num Mod 2 = 0 then            ' if the row number is even...
         Cells(i, j).Interior.ColorIndex = 1 ' ...color the cell black
       Else                                  ' else
