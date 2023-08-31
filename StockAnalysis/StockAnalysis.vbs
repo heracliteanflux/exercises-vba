@@ -1,4 +1,4 @@
-Sub StockAnalysis ():
+Sub StockAnalysis ()
 
   ' each worksheet in the workbook contains data for one year
   ' run this script on each worksheet
