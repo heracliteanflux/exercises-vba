@@ -1,13 +1,13 @@
 # Stock Analysis with Visual Basic for Excel
 
-Run the following commands before committing any large Excel workbook files ([Git Large File Storage](https://git-lfs.com/))
+Run the following commands before committing any large Excel workbook files (see [Git Large File Storage](https://git-lfs.com/)).
 
 ```bash
 git lfs install
 ```
 
 ```bash
-git lfs track *.xlsx *.xlsm
+git lfs track **.xlsx **.xlsm
 ```
 
 ```bash
