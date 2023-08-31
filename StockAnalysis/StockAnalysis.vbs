@@ -4,13 +4,14 @@ Sub StockAnalysis ()
   ' run this script on each worksheet
   For Each ws in Worksheets
 
-    ' generate the title row
-    ws.Range("I1").Value = "Ticker"
-    ws.Range("J1").Value = "Yearly Change"
-    ws.Range("K1").Value = "Percent Change"
-    ws.Range("L1").Value = "Total Stock Volume"
-    ws.Range("P1").Value = "Ticker"
-    ws.Range("Q1").Value = "Value"
+    ' generate the header row for the output
+    ws.Range("I1").Value = "Ticker"                ' header for output row per ticker
+    ws.Range("J1").Value = "Yearly Change"         ' header for output row per ticker
+    ws.Range("K1").Value = "Percent Change"        ' header for output row per ticker
+    ws.Range("L1").Value = "Total Stock Volume"    ' header for output row per ticker
+
+    ws.Range("P1").Value = "Ticker"                ' header row for tickers with greatest values
+    ws.Range("Q1").Value = "Value"                 ' header row for tickers with greatest values
     ws.Range("Q2").Value = "Greatest % Increase"
     ws.Range("Q3").Value = "Greatest % Decrease"
     ws.Range("Q4").Value = "Greatest Total Volume"
@@ -19,7 +20,7 @@ Sub StockAnalysis ()
     ws.Columns("P:Q").AutoFit
 
     Dim change        As Double  ' dailyChange = opening daily stock price - closing daily stock price
-    Dim i             As Long    ' row counter
+    Dim i             As Long    ' row counter for the entire data set
     Dim j             As Integer ' points to the output row which holds the printed results for a ticker, starting with row 2
     Dim percentChange As Double  ' (opening daily stock price - closing daily stock price) / opening daily stock price
     Dim rowCount      As Long    ' the number of rows in the data set
@@ -48,20 +49,21 @@ Sub StockAnalysis ()
       ' the ticker in the current row (i) of col A
       ' --------------------
       If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
+
         total = total + ws.Cells(i, 7).Value ' add current ticker vol to total vol
+                                             ' as would be done in the case that the ticker is still the same
 
-        ' If the total stock volume for this ticker is equal to zero...
+        ' print zero values in the case in which
+        ' the total stock volume for this ticker is equal to zero
         If total = 0 Then
-
-          ' ...print the results
-          ws.Range("I" & 2 + j).Value = ws.Cells(i, 1).Value ' ticker
+          ws.Range("I" & 2 + j).Value = ws.Cells(i, 1).Value ' ticker  
           ws.Range("J" & 2 + j).Value = 0                    ' zero absolute change
           ws.Range("K" & 2 + j).Value = "%" & 0              ' zero percent  change
           ws.Range("L" & 2 + j).Value = 0                    ' zero total stock volume
 
         Else
 
-          ' find the first nonzero opening daily stock price
+          ' find the cell containing the first nonzero opening daily stock price
           If ws.Cells(start, 3) = 0 Then                 ' if the opening daily stock price (Col 3) is equal to zero...
             For find_value = start To i                  ' ...iterate over rows to the current row pointer
               If ws.Cells(find_value, 3).Value <> 0 Then ' if any value is nonzero...
@@ -72,10 +74,10 @@ Sub StockAnalysis ()
           End If
 
           ' compute the daily change and daily percentage change
-          change           = ws.Cells(i, 6) - ws.Cells(start, 3) '  close - open
-          percentageChange = change / ws.Cells(start, 3)         ' (close - open) / open
+          change        = ws.Cells(i, 6) - ws.Cells(start, 3) '  close - open
+          percentChange = change / ws.Cells(start, 3) * 100   ' (close - open) / open * 100
 
-          ' increment the non zero starting value
+          ' increment the cell containing the first nonzero opening daily stock price
           start = i + 1
 
           ' print the results
@@ -111,7 +113,9 @@ Sub StockAnalysis ()
       Else
         total = total + ws.Cells(i, 7).Value ' add current ticker vol to total vol
                                              ' and move on to the next row
+
       End If
+
     Next i
 
     ws.Range("Q2") = "%" & WorksheetFunction.Max(ws.Range("K2:K" & rowCount)) * 100 ' Greatest % Increase   = max(percentChange) x 100
@@ -125,5 +129,7 @@ Sub StockAnalysis ()
     ws.Range("P2") = ws.Cells(increase_number + 1, 9)
     ws.Range("P3") = ws.Cells(decrease_number + 1, 9)
     ws.Range("P4") = ws.Cells(volume_number   + 1, 9)
+
   Next ws
+
 End Sub
