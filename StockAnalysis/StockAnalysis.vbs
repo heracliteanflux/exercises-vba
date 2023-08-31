@@ -18,22 +18,16 @@ Sub StockAnalysis ()
     ws.Columns("I:L").AutoFit
     ws.Columns("P:Q").AutoFit
 
-    ' variables defined per ticker
-    Dim change As Double  ' opening daily stock price - closing daily stock price
-    Dim j      As Integer
-    Dim start  As Long
-    Dim total  As Double  ' total stock volume
-    change = 0
-    j      = 0
-    start  = 2
-    total  = 0
-
-    Dim i             As Long
-    Dim rowCount      As Long
-    Dim percentChange As Double
-    Dim days          As Integer
-    Dim dailyChange   As Double
     Dim averageChange As Double
+    Dim change        As Double  ' opening daily stock price - closing daily stock price
+    Dim dailyChange   As Double
+    Dim days          As Integer
+    Dim i             As Long    ' row counter
+    Dim j             As Integer
+    Dim percentChange As Double
+    Dim rowCount      As Long    ' the number of rows in the data set
+    Dim start         As Long
+    Dim total         As Double  ' total stock volume
 
     ' Rows.Count drops down to the last row in the worksheet (1048576)
     ' .End(xlUp) goes up to the last nonempty cell of the data set
@@ -41,6 +35,11 @@ Sub StockAnalysis ()
     ' excluding empty cells in the data set, or
     ' dropping down to the last row in the worksheet from the last nonempty cell of the data set
     rowCount = ws.Cells(Rows.Count, 1).End(xlUp).Row
+
+    change = 0
+    j      = 0
+    start  = 2
+    total  = 0
 
     For i = 2 To rowCount
       ' --------------------
@@ -95,9 +94,9 @@ Sub StockAnalysis ()
 
         ' reset the variables for a new ticker
         change = 0
-        total  = 0
-        j      = j + 1
         days   = 0
+        j      = j + 1
+        total  = 0
 
       ' --------------------
       ' if the ticker in the next row (i + 1) of col A
