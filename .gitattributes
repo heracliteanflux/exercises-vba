@@ -1,0 +1,2 @@
+StockAnalysis/StockAnalysis.xlsx filter=lfs diff=lfs merge=lfs -text
+StockAnalysis/StockAnalysisTest.xlsx filter=lfs diff=lfs merge=lfs -text
