@@ -1,5 +1,6 @@
 !.gitattributes
 !*.vbs
 !*.xlsx
+!Excel
 !README.md
 !StockAnalysis

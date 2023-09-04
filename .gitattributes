@@ -1,2 +1,5 @@
 StockAnalysis/StockAnalysis.xlsx filter=lfs diff=lfs merge=lfs -text
 StockAnalysis/StockAnalysisTest.xlsx filter=lfs diff=lfs merge=lfs -text
+Excel/StarterBook.xlsx filter=lfs diff=lfs merge=lfs -text
+Excel/StarterBook_original.xlsx filter=lfs diff=lfs merge=lfs -text
+Excel/kickstarter.xlsx filter=lfs diff=lfs merge=lfs -text
